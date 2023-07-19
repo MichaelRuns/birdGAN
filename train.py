@@ -31,7 +31,7 @@ def main():
     }
     }
     current_date = datetime.date.today().strftime("%d_%m_%Y")
-    model_name = f"date_{current_date}_epochs_{NUM_EPOCHS}_birdGAN2_latent_dim{LATENT_DIM}"
+    model_name = f"date_{current_date}_epochs_{NUM_EPOCHS}_birdGAN2_latent_dim{LATENT_DIM}.pt"
     torch.save(model_state, f'./models/{model_name}')
 
     
