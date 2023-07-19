@@ -8,7 +8,7 @@ import datetime
 NUM_EPOCHS = 100
 LEARN_RATE = 0.001
 BATCH_SIZE = 32
-LATENT_DIM = 100
+LATENT_DIM = 200
 def main():
     if not os.path.exists("./data"):
         set_up_data()
