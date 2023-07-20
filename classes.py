@@ -145,7 +145,7 @@ class GAN(pl.LightningModule):
         #generate random name
         characters = string.ascii_letters + string.digits
         random_string = ''.join(random.choice(characters) for _ in range(5))
-        plt.savefig(f'./outputs/{random_string}.png')
+        plt.savefig(f'./samples/{random_string}.png')
       else:
         plt.savefig(f'./outputs/epoch_{self.current_epoch}.png')
 
