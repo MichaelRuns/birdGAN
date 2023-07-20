@@ -6,7 +6,7 @@ import classes
 import matplotlib.pyplot as plt
 import datetime
 NUM_EPOCHS = 200
-LEARN_RATE = 0.0005
+LEARN_RATE = 0.001
 BATCH_SIZE = 64
 LATENT_DIM = 100
 def main():

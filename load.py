@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 def main():
-    model_state = torch.load('models/date_18_07_2023_epochs_500_birdGAN2_latent_dim100.pt')
+    model_state = torch.load('models/date_19_07_2023_epochs_200_birdGAN2_latent_dim100_LR0_0005.pt')
     hyperparams = model_state['hparams']
     state_dict = model_state['state_dict']
     model = classes.GAN(lr=hyperparams['lr'], latent_dim=hyperparams['latent_dim'])
