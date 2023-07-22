@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import random
 import string
 import os
+import base64
 
 class BirdDataModule(pl.LightningDataModule):
   def __init__(self, data_dir='./data/train', batch_size=32, num_workers=20):
@@ -133,7 +134,7 @@ class GAN(pl.LightningModule):
       opt_d = torch.optim.Adam(self.discriminator.parameters(), lr=lr)
       return [opt_g, opt_d], []
 
-  def generate_sample(self, time_names=False):
+  def generate_sample(self, time_names=False, return_image=False):
       z = torch.randn(1, self.hparams.latent_dim, 1, 1, device=torch.device("cuda" if torch.cuda.is_available() else "cpu")).type_as(self.generator.model[0].weight)
       sample_image = self(z).cpu()
       print('epoch ', self.current_epoch)
@@ -142,15 +143,25 @@ class GAN(pl.LightningModule):
       plt.xticks([])
       plt.yticks([])
       plt.axis('off')
+      filename = None
       if time_names:
         #generate random name
         characters = string.ascii_letters + string.digits
         random_string = ''.join(random.choice(characters) for _ in range(5))
         if not os.path.exists("./samples"):
           os.mkdir("./samples")
-        plt.savefig(f'./samples/{random_string}.png')
+        filename = f'./samples/{random_string}.png'
+        plt.savefig(filename)
       else:
-        plt.savefig(f'./outputs/epoch_{self.current_epoch}.png')
+        filename = './outputs/epoch_{self.current_epoch}.png'
+        plt.savefig(filename)
+      if return_image:
+            # Read the saved image and convert it to a base64-encoded string
+            with open(filename, "rb") as image_file:
+                encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+            os.remove(filename)  # Remove the file after encoding
+
+            return encoded_image
 
   def on_train_epoch_end(self):
     self.generate_sample()

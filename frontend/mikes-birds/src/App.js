@@ -1,22 +1,32 @@
 import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { queryApiForBirds } from './api';
 
 function App() {
+  const [birds, setBirds] = useState([0])
+  const handleGenerateClick = async () => {
+    try {
+      setBirds(await queryApiForBirds());
+      console.log('GOT BIRDSSSSS')
+      console.log(birds)
+    } catch (error) {
+      console.log(error)
+      console.log('error')
+    }
+  };
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      {birds ? (
+          <img src={`data:image/png;base64,${birds}`} alt="Generated Bird" />
+        ) : (
+          <p>No bird image generated yet.</p>
+        )}
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          I  love you this much
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button onClick={handleGenerateClick}>Generate</button>
       </header>
     </div>
   );
