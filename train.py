@@ -5,9 +5,9 @@ import torch
 import classes
 import matplotlib.pyplot as plt
 import datetime
-NUM_EPOCHS = 200
-LEARN_RATE = 0.001
-BATCH_SIZE = 64
+NUM_EPOCHS = 150
+LEARN_RATE = 0.0006
+BATCH_SIZE = 32
 LATENT_DIM = 100
 def main():
     if not os.path.exists("./data"):

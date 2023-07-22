@@ -7,6 +7,7 @@ from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 import random
 import string
+import os
 
 class BirdDataModule(pl.LightningDataModule):
   def __init__(self, data_dir='./data/train', batch_size=32, num_workers=20):
@@ -145,6 +146,8 @@ class GAN(pl.LightningModule):
         #generate random name
         characters = string.ascii_letters + string.digits
         random_string = ''.join(random.choice(characters) for _ in range(5))
+        if not os.path.exists("./samples"):
+          os.mkdir("./samples")
         plt.savefig(f'./samples/{random_string}.png')
       else:
         plt.savefig(f'./outputs/epoch_{self.current_epoch}.png')
