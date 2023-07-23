@@ -4,7 +4,7 @@ import './App.css';
 import { queryApiForBirds } from './api';
 
 function App() {
-  const [birds, setBirds] = useState([0])
+  const [birds, setBirds] = useState(null)
   const handleGenerateClick = async () => {
     try {
       setBirds(await queryApiForBirds());
@@ -24,7 +24,7 @@ function App() {
           <p>No bird image generated yet.</p>
         )}
         <p>
-          I  love you this much
+          hi dad 
         </p>
         <button onClick={handleGenerateClick}>Generate</button>
       </header>

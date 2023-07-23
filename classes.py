@@ -133,7 +133,26 @@ class GAN(pl.LightningModule):
       opt_g = torch.optim.Adam(self.generator.parameters(), lr=lr)
       opt_d = torch.optim.Adam(self.discriminator.parameters(), lr=lr)
       return [opt_g, opt_d], []
-
+  
+  def create_griddy(self, rows=6, cols=6):
+     # display a lot of images
+    z = torch.randn(rows * cols, self.hparams.latent_dim, 1, 1, device=torch.device("cuda" if torch.cuda.is_available() else "cpu")).type_as(self.generator.model[0].weight)
+    samples = self(z).cpu()
+    samples = samples.detach().numpy().transpose(0, 2, 3, 1)
+    fig = plt.figure(figsize=(rows, cols))
+    for i in range(rows * cols):
+        plt.subplot(rows, cols, i + 1)
+        plt.imshow(samples[i])
+        plt.xticks([])
+        plt.yticks([])
+        plt.axis('off')
+    plt.savefig('./temp.png')
+    filename = './temp.png'
+    with open(filename, "rb") as image_file:
+        encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+        os.remove(filename)  # Remove the file after encoding
+        return encoded_image
+       
   def generate_sample(self, time_names=False, return_image=False):
       z = torch.randn(1, self.hparams.latent_dim, 1, 1, device=torch.device("cuda" if torch.cuda.is_available() else "cpu")).type_as(self.generator.model[0].weight)
       sample_image = self(z).cpu()

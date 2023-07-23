@@ -38,6 +38,7 @@ async def startup_event():
 @app.get("/generate")
 async def generate_image():
     print("Generating image")
-    img = model.generate_sample(time_names=True, return_image=True)
+    img = model.create_griddy()
+    # img = model.generate_sample(time_names=True, return_image=True)
     print("image left the api")
     return {"generated_birds": img}
