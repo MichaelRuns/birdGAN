@@ -5,12 +5,6 @@ const apiClient = axios.create({
 });
 
 export const queryApiForBirds = async () => {
-    const formData = new FormData();
-    formData.append('bird', 'bird');
-    const response = await apiClient.get('/generate', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    });
+    const response = await apiClient.get('/generate');
     return response.data.generated_birds;   
 }

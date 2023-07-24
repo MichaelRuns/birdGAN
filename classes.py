@@ -139,7 +139,7 @@ class GAN(pl.LightningModule):
     z = torch.randn(rows * cols, self.hparams.latent_dim, 1, 1, device=torch.device("cuda" if torch.cuda.is_available() else "cpu")).type_as(self.generator.model[0].weight)
     samples = self(z).cpu()
     samples = samples.detach().numpy().transpose(0, 2, 3, 1)
-    fig = plt.figure(figsize=(rows, cols))
+    fig = plt.figure(figsize=(rows, cols), layout='tight', )
     for i in range(rows * cols):
         plt.subplot(rows, cols, i + 1)
         plt.imshow(samples[i])

@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
@@ -11,7 +12,7 @@ import classes
 app = FastAPI()
 
 # CORS
-origins = ["https://localhost", "https://localhost:3000", "https://localhost:3000/", "*"]
+origins = ["https://localhost", "https://localhost:3000", "https://localhost:3000/"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -39,6 +40,6 @@ async def startup_event():
 async def generate_image():
     print("Generating image")
     img = model.create_griddy()
-    # img = model.generate_sample(time_names=True, return_image=True)
     print("image left the api")
-    return {"generated_birds": img}
+    response = JSONResponse(content={"generated_birds": img}, headers={"Access-Control-Allow-Origin": "http://localhost:3000"})
+    return response
