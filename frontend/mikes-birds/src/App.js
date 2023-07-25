@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { queryApiForBirds } from './api';
 import SocialMediaLinks from './Links';
-import { AboutMenu, TitleCard } from './components';
+import { AboutMenu, TitleCard} from './components';
 
 function App() {
   const [birds, setBirds] = useState(null)
