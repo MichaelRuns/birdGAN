@@ -6,7 +6,7 @@ import classes
 import matplotlib.pyplot as plt
 import datetime
 NUM_EPOCHS = 150
-LEARN_RATE = 0.0006
+LEARN_RATE = 1e-4
 BATCH_SIZE = 32
 LATENT_DIM = 100
 def main():
@@ -17,7 +17,7 @@ def main():
         os.mkdir("./outputs/real")
     sample_dataset()
     torch.set_float32_matmul_precision('medium')
-    dm = classes.BirdDataModule(batch_size=BATCH_SIZE)
+    dm = classes.BirdDataModule(batch_size=BATCH_SIZE, num_workers=8)
     model = classes.GAN(lr=LEARN_RATE, latent_dim=LATENT_DIM)
     trainer = pl.Trainer(max_epochs=NUM_EPOCHS)
     trainer.fit(model, dm)

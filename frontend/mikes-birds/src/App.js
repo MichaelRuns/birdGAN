@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { queryApiForBirds } from './api';
 import SocialMediaLinks from './Links';
+import { AboutMenu, TitleCard } from './components';
 
 function App() {
   const [birds, setBirds] = useState(null)
@@ -16,9 +17,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>About</p>
-        <p> Chidori</p>
-        <p>Item 3</p>
+        <AboutMenu/>
+        <TitleCard/>
       </header>
       <div className='App-body'>
       <div>

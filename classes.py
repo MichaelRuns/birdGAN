@@ -4,6 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
+import torchvision.utils as vutils
 import matplotlib.pyplot as plt
 import random
 import string
@@ -130,8 +131,8 @@ class GAN(pl.LightningModule):
 
   def configure_optimizers(self):
       lr = self.hparams.lr
-      opt_g = torch.optim.Adam(self.generator.parameters(), lr=lr)
-      opt_d = torch.optim.Adam(self.discriminator.parameters(), lr=lr)
+      opt_g = torch.optim.Adam(self.generator.parameters(), lr=lr, betas=(0.5, 0.999))
+      opt_d = torch.optim.Adam(self.discriminator.parameters(), lr=lr, betas=(0.5, 0.999))
       return [opt_g, opt_d], []
   
   def create_griddy(self, rows=6, cols=6):
@@ -156,7 +157,6 @@ class GAN(pl.LightningModule):
   def generate_sample(self, time_names=False, return_image=False):
       z = torch.randn(1, self.hparams.latent_dim, 1, 1, device=torch.device("cuda" if torch.cuda.is_available() else "cpu")).type_as(self.generator.model[0].weight)
       sample_image = self(z).cpu()
-      print('epoch ', self.current_epoch)
       img = sample_image.detach().numpy().transpose(0, 2, 3, 1)
       plt.imshow(img[0])
       plt.xticks([])
@@ -172,7 +172,7 @@ class GAN(pl.LightningModule):
         filename = f'./samples/{random_string}.png'
         plt.savefig(filename)
       else:
-        filename = './outputs/epoch_{self.current_epoch}.png'
+        filename = f'./outputs/epoch_{self.current_epoch}.png'
         plt.savefig(filename)
       if return_image:
             # Read the saved image and convert it to a base64-encoded string
@@ -181,6 +181,9 @@ class GAN(pl.LightningModule):
             os.remove(filename)  # Remove the file after encoding
 
             return encoded_image
+  
+  def generate_good_samples(self):
+     pass
 
   def on_train_epoch_end(self):
     self.generate_sample()
