@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: rgb(44, 138, 189);
   min-height: 10vh;
@@ -40,21 +29,24 @@
   color: white;
 }
 .App-footer {
-  background-color: #aaa;
+  background-color: #fff;
   min-height: 10vh;
   display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  padding-left: 2%;
+  gap: 10px;
   font-size: calc(10px + 1vmin);
-  color: white;
+  color: black;
 }
 
 .Links-container{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  gap: 10px;
   color: white;
 }
 
@@ -67,38 +59,4 @@
   margin: 5px;
   font-size: calc(10px + 1vmin);
   cursor: pointer;
-}
-
-/* Styling for the dropdown button */
-.App-dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  align-items: left;
-  cursor: pointer;
-}
-
-.App-dropbtn:hover {
-  background-color: #45a049;
-}
-
-/* Styling for the dropdown content */
-.App-dropdown-content {
-  z-index: 1;
-}
-
-.App-dropdown-content button {
-  display: block;
-  width: 100%;
-  padding: 8px 0;
-  text-align: left;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.App-dropdown-content button:hover {
-  background-color: #f1f1f1;
-}
+} 
