@@ -41,6 +41,11 @@
   color: black;
 }
 
+.App-picture {
+  flex-basis: 10%; /* Set the desired percentage for the first child element */
+  margin: 30px;
+}
+
 .Links-container{
   display: flex;
   flex-direction: row;
