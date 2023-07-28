@@ -1,15 +1,12 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 import torch
-import torchvision.transforms as transforms
-from PIL import Image
-import io
 import os
 import sys
 sys.path.append('..')
-import classes
+import models
 
 app = FastAPI()
 # CORS
@@ -31,7 +28,7 @@ def load_model():
     model_state = torch.load('../models/date_19_07_2023_epochs_200_birdGAN2_latent_dim100_LR0_0005.pt')
     hyperparams = model_state['hparams']
     state_dict = model_state['state_dict']
-    model = classes.GAN(lr=hyperparams['lr'], latent_dim=hyperparams['latent_dim'])
+    model = models.GAN(lr=hyperparams['lr'], latent_dim=hyperparams['latent_dim'])
     model.load_state_dict(state_dict)
     model.eval()
     print("Model loaded")

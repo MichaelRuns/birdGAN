@@ -3,6 +3,7 @@ import zipfile
 import pytorch_lightning as pl
 import torch
 import classes
+import models
 import matplotlib.pyplot as plt
 import datetime
 NUM_EPOCHS = 150
@@ -18,7 +19,7 @@ def main():
     sample_dataset()
     torch.set_float32_matmul_precision('medium')
     dm = classes.BirdDataModule(batch_size=BATCH_SIZE, num_workers=8)
-    model = classes.GAN(lr=LEARN_RATE, latent_dim=LATENT_DIM)
+    model = models.GAN(lr=LEARN_RATE, latent_dim=LATENT_DIM)
     trainer = pl.Trainer(max_epochs=NUM_EPOCHS)
     trainer.fit(model, dm)
     model_state = {
