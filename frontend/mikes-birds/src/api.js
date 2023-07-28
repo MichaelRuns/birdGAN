@@ -1,5 +1,5 @@
 import axios from 'axios'
-const backendURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+const backendURL = process.env.REACT_APP_BACKEND_URL || window.location.protocol + '//' + window.location.host;
 const apiClient = axios.create({
     baseURL: backendURL,
 });
