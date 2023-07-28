@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
@@ -11,9 +12,8 @@ sys.path.append('..')
 import classes
 
 app = FastAPI()
-
 # CORS
-origins = ["https://localhost", "https://localhost:3000", "https://localhost:3000/"]
+origins = ["https://localhost", "https://localhost:3000", "https://localhost:3000/", "https://localhost:8000", "https://localhost:8000/"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,6 +34,7 @@ def load_model():
     model = classes.GAN(lr=hyperparams['lr'], latent_dim=hyperparams['latent_dim'])
     model.load_state_dict(state_dict)
     model.eval()
+    print("Model loaded")
 
 @app.on_event("startup")
 async def startup_event():
@@ -44,9 +45,10 @@ async def generate_image():
     print("Generating image")
     img = model.create_griddy()
     print("image left the api")
-    response = JSONResponse(content={"generated_birds": img}, headers={"Access-Control-Allow-Origin": "http://localhost:3000"})
+    response = JSONResponse(content={"generated_birds": img}, headers={"Access-Control-Allow-Origin": "https://localhost:3000, https://localhost:8000"})
     return response
 
+app.mount("/", StaticFiles(directory="../frontend/mikes-birds/build", html=True), name="frontend")
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app, host='0.0.0.0', port=port)
+    uvicorn.run(app, host='localhost', port=port)
