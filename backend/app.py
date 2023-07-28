@@ -5,6 +5,7 @@ import torch
 import torchvision.transforms as transforms
 from PIL import Image
 import io
+import os
 import sys
 sys.path.append('..')
 import classes
@@ -13,6 +14,7 @@ app = FastAPI()
 
 # CORS
 origins = ["https://localhost", "https://localhost:3000", "https://localhost:3000/"]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -22,6 +24,7 @@ app.add_middleware(
 )
 device = torch.device('cpu')
 model = None
+port = int(os.environ.get("PORT", 8000))
 
 def load_model():
     global model
@@ -43,3 +46,7 @@ async def generate_image():
     print("image left the api")
     response = JSONResponse(content={"generated_birds": img}, headers={"Access-Control-Allow-Origin": "http://localhost:3000"})
     return response
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host='0.0.0.0', port=port)

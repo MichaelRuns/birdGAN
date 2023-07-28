@@ -15,7 +15,7 @@ export function AboutMenu(props) {
   };
   return (
     <div>
-    <Button style={{color: 'white'}} onClick={handleClick}> About</Button>
+    <Button style={{color: 'white',  border: '2px solid #fff',}} onClick={handleClick}> About</Button>
     <Menu
         anchorEl={anchorEl}
         open={open}

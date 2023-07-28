@@ -15,7 +15,6 @@ function App() {
   const handleGenerateClick = async () => {
     try {
       setBirds(await queryApiForBirds());
-      console.log(birds)
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +52,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <AboutMenu
-          _handleAboutMenuClicks={HandleAboutMenuClicks} />
+          _handleAboutMenuClicks={HandleAboutMenuClicks}/>
         <TitleCard />
       </header>
       <div className='App-body'>
@@ -61,7 +60,7 @@ function App() {
           open={aboutGansOpen}
           onClose={handleCloseDialog}
           title="What is a GAN?"
-          content={<div>
+          content={<div className='About-content'>
             <p>Generative Adversarial Networks, or GANs for short, are a form of generative neural networks. They consist of two components:
               a discriminator, and a generator. Given a set of examples,
               they are trained adversarially, where the generator creates fake images (starting from random noise), and the discriminator tries to differentiate them</p>
@@ -73,7 +72,7 @@ function App() {
           open={aboutAuthorOpen}
           onClose={handleCloseDialog}
           title="About Me"
-          content={<div>
+          content={<div className='About-content'>
             <img src={process.env.PUBLIC_URL + '/Vernau_Michael.jpg'} alt='mike.jpg' height={400}></img>
             <p>Hi, I'm Michael Vernau! I am a professional software engineer passionate about AI and full stack development. I graduated with my BS in CS from Stanford in 2022. Originally a biology student,
               I switched to computer science after falling in love with machine learning during my junior year. I still love biology and find my favorite projects involve the analysis of biodata.
@@ -100,14 +99,14 @@ function App() {
           open={whyChidoriOpen}
           onClose={handleCloseDialog}
           title="Why is this called Chidori?"
-          content={<div>
+          content={<div className='About-content'>
             <p>
               The name Chidori comes from a story about famous samurai Tachibana Dōsetsu: Tachibana was in possession of a famous sword called Chidori (千鳥, literally meaning: A Thousand Birds). One day, while he was still a young man, he was taking shelter under a tree, as it was raining.
 
               Suddenly, a bolt of lightning struck him. However, Tachibana used his Chidori to cut the Thunder God inside the lightning bolt, allowing him to survive. After this incident, he renamed his Chidori to Raikiri (雷切, literally meaning: Lightning Cutter).
             </p>
             <ul></ul>
-            <p> In the context of this app, I wanted to reference the large number of generated birds and pay homage to my childhood.</p>
+            <p>In the context of this app, I wanted to reference the semi-infinite number of birds I can create</p>
             <img src={process.env.PUBLIC_URL + '/chidori.jpeg'} alt='sasuke.jpeg' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }} />
           </div>}
         />
