@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -10,7 +11,8 @@ import models
 
 app = FastAPI()
 # CORS
-origins = ["https://localhost", "https://localhost:3000", "https://localhost:3000/", "https://localhost:8000", "https://localhost:8000/"]
+port = int(os.environ.get("PORT", 8000))
+origins = ["https://localhost", "https://localhost:3000", "https://localhost:3000/", "https://localhost:8000", "https://localhost:8000/", "https://localhost:{port}"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,7 +23,6 @@ app.add_middleware(
 )
 device = torch.device('cpu')
 model = None
-port = int(os.environ.get("PORT", 8000))
 
 def load_model():
     global model
