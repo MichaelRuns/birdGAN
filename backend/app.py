@@ -46,7 +46,7 @@ async def generate_image():
     response = JSONResponse(content={"generated_birds": img}, headers={"Access-Control-Allow-Origin": "https://localhost:3000, https://localhost:8000"})
     return response
 
-app.mount("/", StaticFiles(directory="../frontend/build", html=True), name="frontend")
+app.mount("/", StaticFiles(directory=f"../frontend/build", html=True), name="frontend")
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host='0.0.0.0', port=port)
