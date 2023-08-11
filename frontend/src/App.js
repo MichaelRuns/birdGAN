@@ -65,7 +65,7 @@ function App() {
               a discriminator, and a generator. Given a set of examples,
               they are trained adversarially, where the generator creates fake images (starting from random noise), and the discriminator tries to differentiate them</p>
             <img src={process.env.PUBLIC_URL + '/GAN.jpeg'} alt='model.jpeg' width={600} />
-            <p>Think of this as a game of counterfeighter and police officer. Over time, as both get more adept, the counterfeight images get increasingly indistinguishable from the original images. These images are what you see here.</p>
+            <p>Think of this as a game of counterfeiter and police officer. Over time, as both get more adept, the counterfeit images get increasingly indistinguishable from the original images. These images are what you see here.</p>
           </div>}
         />
         <AboutCard
@@ -78,7 +78,7 @@ function App() {
               I switched to computer science after falling in love with machine learning during my junior year. I still love biology and find my favorite projects involve the analysis of biodata.
               I'd describe myself as a full stack ML engineer, and one day I hope to work on bio integrated systems.</p>
             <p> I am a retired NCAA distance runner,
-              and working out is still super import to me. If you see me, chances are I'm on the keys or out getting my mileage in! </p>
+              and working out is still super important to me. If you see me, chances are I'm on the keys or out getting my mileage in! </p>
           </div>}
         />
         <AboutCard
@@ -112,7 +112,10 @@ function App() {
         />
         <div className='App-picture'>
           {birds ? (
-            <img src={`data:image/png;base64,${birds}`} alt="Generated Bird" sizes='400' />
+            <img src={`data:image/png;base64,${birds}`} alt="Generated Bird" style={{
+              width: '100%', // Default width for all screen sizes
+              maxWidth: '400px', // Maximum width for larger screens
+            }} />
           ) : (
             <p>No bird image generated yet.</p>
           )}
